@@ -2,10 +2,16 @@ import json
 import os
 import requests
 
+"""Список всех котируемых валют которые используются в get_arbitrage_chain"""
+
 asset_currency = ['BTC', 'ETH', 'BNB', 'BUSD', 'USDT', 'FDUSD']
 
 
 def get_currency():
+    """
+    Функция делает запрос на url, получает всю инфу по всем существующим парам,
+    перебирает полученную инфу и парсит необходимые данные
+    """
     response = requests.get('https://api.binance.com/api/v3/exchangeInfo')
     exchange_info = response.json()
 
@@ -29,6 +35,13 @@ def get_currency():
 
 
 def get_arbitrage_chain(symbol_data_list):
+    """
+    Функция получает список словарей symbol_data_list,
+    после чего формирует цепочки в соответствии с условием,
+    также добавляет всю необходимую информацию для них, включая шаг,
+    котируемую валюту и название пары. (все данные упорядочены)
+    Формирует список chains из получившихся цепочек и возвращает его же
+    """
     chains = []
 
     for currency in asset_currency:
@@ -67,6 +80,13 @@ def get_arbitrage_chain(symbol_data_list):
 
 
 def check_json():
+    """
+    Функция проверяет есть ли в currencys.json данные, если нет
+    дергает функцию get_currency которая в свою очередь дергает
+    get_arbitrage_chain которая возвращает chains. Соответственно это
+    главная функция которая запускает механизм добавления данных в json.
+    Если данные есть в json то просто возвращает эти данные.
+    """
     current_directory = os.path.dirname(os.path.abspath(__file__))
     json_path = os.path.join(current_directory, 'currencys.json')
 

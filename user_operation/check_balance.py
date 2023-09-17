@@ -3,6 +3,10 @@ from config import api_key, api_secret, asset_currency
 
 
 def get_balance():
+    """
+    Функция проверки баланса, нигде не используется,
+    просто лежит здесь чтобы использовать потом
+    """
     client = None
 
     try:

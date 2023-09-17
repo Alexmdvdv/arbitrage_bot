@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+"""Просто данные из .env файла"""
+
 api_key = os.getenv('API_KEY')
 api_secret = os.getenv('API_SECRET_KEY')
 

@@ -25,6 +25,11 @@ def main():
         twm.start()
 
         def socket_response(msg):
+            """
+            Колбэк функция которая принимает данные из start_ticker_socket,
+            формирует словарь где ключом является название символа,
+            а значением кортеж из amount_deals, ask, bid
+            """
             last_prices = {}
 
             for item in msg:
@@ -43,6 +48,13 @@ def main():
 
 
 def get_complete_data(data):
+    """
+    Принимает в качестве аргумента data из socket_response,
+    а также глобальную переменную chains_info которая содержит все цепочки из currencys.json.
+    Функция проверяет есть ли в data подходящие пары из chains_info. Если есть данные для трех
+    пар в цепочке то добавляет эту цепочку в список chains, так происходит для всего списка data.
+    """
+
     chains = []
 
     for chain in chains_info:
@@ -91,6 +103,10 @@ def get_complete_data(data):
 
 
 def get_calculated_data(datas):
+    """
+    Функция принимает в качестве аргумента список словарей datas,
+    который содержит цепочки из трех пар для рассчета
+    """
     balance = None
     for data in datas:
 

@@ -4,6 +4,12 @@ from config import api_key, api_secret
 
 
 def start_create_order(symbol, side, quantity, price):
+    """
+    Просто функция создания ордера, из необычного
+    результат запрашивает через get_order каждые 0.2 сек,
+    но запрашивается только в том случае если order_status != 'FILLED'
+    """
+
     client = Client(api_key, api_secret)
 
     try:
@@ -42,6 +48,11 @@ def start_create_order(symbol, side, quantity, price):
 
 
 def create_order(data):
+    """
+    Функция принимает список из 3х словарей,
+    каждый словарь содержит всю необходимую информацию
+    для создания ордера по указанной паре в словаре
+    """
     for order_data in data:
         symbol = order_data['pair']
         side = order_data['side']
